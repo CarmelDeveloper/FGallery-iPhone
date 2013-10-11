@@ -8,7 +8,7 @@
 
 #import "FGalleryViewController.h"
 
-#define kThumbnailSize 75
+#define kThumbnailSize 65
 #define kThumbnailSpacing 4
 #define kCaptionPadding 3
 #define kToolbarHeight 40
@@ -213,7 +213,7 @@
 	self.view                                   = _container;
 	
 	// add items to their containers
-	[_container addSubview:_innerContainer];
+	//[_container addSubview:_innerContainer];
 	[_container addSubview:_thumbsView];
 	
 	[_innerContainer addSubview:_scroller];

@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "FGalleryPhotoView.h"
 #import "FGalleryPhoto.h"
+#import "DKDetailViewController.h"
 
 
 typedef enum
@@ -77,6 +78,8 @@ typedef enum
 @property (nonatomic) BOOL useThumbnailView;
 @property (nonatomic) BOOL beginsInThumbnailView;
 @property (nonatomic) BOOL hideTitle;
+@property (nonatomic, retain) DKDetailViewController *detailViewController;
+@property (strong, nonatomic) NSManagedObject *proposalObject;
 
 @end
 
