@@ -306,7 +306,7 @@
         [self preloadThumbnailImages];
         
         // start on first image
-        [self gotoImageByIndex:_currentIndex animated:NO];
+        //[self gotoImageByIndex:_currentIndex animated:NO];
         
         // layout
         [self layoutViews];
