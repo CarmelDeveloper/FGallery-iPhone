@@ -447,7 +447,7 @@
 		
 		if( !animated )	{
 			[self preloadThumbnailImages];
-			[self loadFullsizeImageWithIndex:index];
+			//[self loadFullsizeImageWithIndex:index];
 		}
 	}
 	[self updateButtons];
@@ -976,7 +976,7 @@
 	if( sourceType == FGalleryPhotoSourceTypeLocal )
 	{
 		thumbPath = [_photoSource photoGallery:self filePathForPhotoSize:FGalleryPhotoSizeThumbnail atIndex:index];
-		fullsizePath = [_photoSource photoGallery:self filePathForPhotoSize:FGalleryPhotoSizeFullsize atIndex:index];
+		fullsizePath = nil;
 		photo = [[[FGalleryPhoto alloc] initWithThumbnailPath:thumbPath fullsizePath:fullsizePath delegate:self] autorelease];
 	}
 	else if( sourceType == FGalleryPhotoSourceTypeNetwork )
@@ -1018,7 +1018,7 @@
 	[self updateCaption];
 	[self updateTitle];
 	[self updateButtons];
-	[self loadFullsizeImageWithIndex:_currentIndex];
+	//[self loadFullsizeImageWithIndex:_currentIndex];
 	[self preloadThumbnailImages];
 }
 
@@ -1127,6 +1127,7 @@
         {
             FGalleryPhoto *photo = [_photoLoaders objectForKey:[keys objectAtIndex:i]];
             [photo unloadFullsize];
+            [photo unloadThumbnail];
             
             // unload main image thumb
             FGalleryPhotoView *photoView = [_photoViews objectAtIndex:i];
