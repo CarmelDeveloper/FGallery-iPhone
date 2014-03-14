@@ -315,7 +315,7 @@
 
 - (FGalleryPhoto*)currentPhoto
 {
-    return [_photoLoaders objectForKey:[NSString stringWithFormat:@"%i", _currentIndex]];
+    return [_photoLoaders objectForKey:[NSString stringWithFormat:@"%li", (long)_currentIndex]];
 }
 
 
@@ -383,7 +383,7 @@
 	// remove the image and thumbnail at the specified index.
 	FGalleryPhotoView *imgView = [_photoViews objectAtIndex:index];
  	FGalleryPhotoView *thumbView = [_photoThumbnailViews objectAtIndex:index];
-	FGalleryPhoto *photo = [_photoLoaders objectForKey:[NSString stringWithFormat:@"%i",index]];
+	FGalleryPhoto *photo = [_photoLoaders objectForKey:[NSString stringWithFormat:@"%lu",(unsigned long)index]];
 	
 	[photo unloadFullsize];
 	[photo unloadThumbnail];
@@ -393,7 +393,7 @@
 	
 	[_photoViews removeObjectAtIndex:index];
 	[_photoThumbnailViews removeObjectAtIndex:index];
-	[_photoLoaders removeObjectForKey:[NSString stringWithFormat:@"%i",index]];
+	[_photoLoaders removeObjectForKey:[NSString stringWithFormat:@"%lu",(unsigned long)index]];
 	
 	[self layoutViews];
 	[self updateButtons];
@@ -685,7 +685,7 @@
 - (void)updateTitle
 {
     if (!_hideTitle){
-        [self setTitle:[NSString stringWithFormat:@"%i %@ %i", _currentIndex+1, NSLocalizedString(@"of", @"") , [_photoSource numberOfPhotosForPhotoGallery:self]]];
+        [self setTitle:[NSString stringWithFormat:@"%li %@ %i", _currentIndex+1, NSLocalizedString(@"of", @"") , [_photoSource numberOfPhotosForPhotoGallery:self]]];
     }else{
         [self setTitle:@""];
     }
@@ -871,12 +871,12 @@
 	FGalleryPhoto *photo;
 	
 	// check to see if the current image thumb has been loaded
-	photo = [_photoLoaders objectForKey:[NSString stringWithFormat:@"%i", index]];
+	photo = [_photoLoaders objectForKey:[NSString stringWithFormat:@"%lu", (unsigned long)index]];
 	
 	if( !photo )
 	{
 		[self loadThumbnailImageWithIndex:index];
-		photo = [_photoLoaders objectForKey:[NSString stringWithFormat:@"%i", index]];
+		photo = [_photoLoaders objectForKey:[NSString stringWithFormat:@"%lu", (unsigned long)index]];
 	}
 	
 	if( !photo.hasThumbLoaded && !photo.isThumbLoading )
@@ -887,11 +887,11 @@
 	NSUInteger curIndex = prevIndex;
 	while( curIndex > -1 && curIndex > prevIndex - preloadCount )
 	{
-		photo = [_photoLoaders objectForKey:[NSString stringWithFormat:@"%i", curIndex]];
+		photo = [_photoLoaders objectForKey:[NSString stringWithFormat:@"%lu", (unsigned long)curIndex]];
 		
 		if( !photo ) {
 			[self loadThumbnailImageWithIndex:curIndex];
-			photo = [_photoLoaders objectForKey:[NSString stringWithFormat:@"%i", curIndex]];
+			photo = [_photoLoaders objectForKey:[NSString stringWithFormat:@"%lu", (unsigned long)curIndex]];
 		}
 		
 		if( !photo.hasThumbLoaded && !photo.isThumbLoading )
@@ -905,11 +905,11 @@
 	curIndex = nextIndex;
 	while( curIndex < count && curIndex < nextIndex + preloadCount )
 	{
-		photo = [_photoLoaders objectForKey:[NSString stringWithFormat:@"%i", curIndex]];
+		photo = [_photoLoaders objectForKey:[NSString stringWithFormat:@"%lu", (unsigned long)curIndex]];
 		
 		if( !photo ) {
 			[self loadThumbnailImageWithIndex:curIndex];
-			photo = [_photoLoaders objectForKey:[NSString stringWithFormat:@"%i", curIndex]];
+			photo = [_photoLoaders objectForKey:[NSString stringWithFormat:@"%lu", (unsigned long)curIndex]];
 		}
 		
 		if( !photo.hasThumbLoaded && !photo.isThumbLoading )
@@ -934,7 +934,7 @@
 
 - (void)loadThumbnailImageWithIndex:(NSUInteger)index
 {
-	FGalleryPhoto *photo = [_photoLoaders objectForKey:[NSString stringWithFormat:@"%i", index]];
+	FGalleryPhoto *photo = [_photoLoaders objectForKey:[NSString stringWithFormat:@"%lu", (unsigned long)index]];
 	
 	if( photo == nil )
 		photo = [self createGalleryPhotoForIndex:index];
@@ -945,7 +945,7 @@
 
 - (void)loadFullsizeImageWithIndex:(NSUInteger)index
 {
-	FGalleryPhoto *photo = [_photoLoaders objectForKey:[NSString stringWithFormat:@"%i", index]];
+	FGalleryPhoto *photo = [_photoLoaders objectForKey:[NSString stringWithFormat:@"%lu", (unsigned long)index]];
 	
 	if( photo == nil )
 		photo = [self createGalleryPhotoForIndex:index];
@@ -957,7 +957,7 @@
 - (void)unloadFullsizeImageWithIndex:(NSUInteger)index
 {
 	if (index < [_photoViews count]) {		
-		FGalleryPhoto *loader = [_photoLoaders objectForKey:[NSString stringWithFormat:@"%i", index]];
+		FGalleryPhoto *loader = [_photoLoaders objectForKey:[NSString stringWithFormat:@"%lu", (unsigned long)index]];
 		[loader unloadFullsize];
 		
 		FGalleryPhotoView *photoView = [_photoViews objectAtIndex:index];
@@ -995,7 +995,7 @@
 	photo.tag = index;
 	
 	// store it
-	[_photoLoaders setObject:photo forKey: [NSString stringWithFormat:@"%i", index]];
+	[_photoLoaders setObject:photo forKey: [NSString stringWithFormat:@"%lu", (unsigned long)index]];
 	
 	return photo;
 }
