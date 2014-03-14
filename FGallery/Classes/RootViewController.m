@@ -73,10 +73,10 @@
 {
     int num = 0;
     if( gallery == localGallery ) {
-        num = [localImages count];
+        num = (int)[localImages count];
     }
     else if( gallery == networkGallery ) {
-        num = [networkImages count];
+        num = (int)[networkImages count];
     }
 	return num;
 }
